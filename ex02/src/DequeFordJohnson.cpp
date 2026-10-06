@@ -6,7 +6,7 @@
 /*   By: rorollin <rorollin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/06 11:35:59 by rorollin          #+#    #+#             */
-/*   Updated: 2026/10/06 13:34:43 by rorollin         ###   ########.fr       */
+/*   Updated: 2026/10/06 15:13:02 by rorollin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,11 @@ DequeFordJohnson::Elems	DequeFordJohnson::mergeInsert(const Elems &elems)
 		limits.push_back(chain.size());
 	}
 
-	BoundedSearch	search(_cmp);
-	JacobsthalOrder	order(pend.size() + 1);
-	size_t			k;
-	while (order.next(k))
+	BoundedSearch		search(_cmp);
+	std::vector<size_t>	order = jacobsthalOrder(pend.size() + 1);
+	for (std::vector<size_t>::size_type n = 0; n < order.size(); ++n)
 	{
-		size_t	i = k - 2;
+		size_t	i = order[n] - 2;
 		size_t	pos = search.position(chain, limits[i], pend[i]);
 		chain.insert(chain.begin() + pos, pend[i]);
 

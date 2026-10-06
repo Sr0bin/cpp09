@@ -6,7 +6,7 @@
 /*   By: rorollin <rorollin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/06 11:35:57 by rorollin          #+#    #+#             */
-/*   Updated: 2026/10/06 11:35:57 by rorollin         ###   ########.fr       */
+/*   Updated: 2026/10/06 15:08:53 by rorollin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ class PmergeMe
 		void	run(int argc, char **argv);
 
 	private:
-		InputParser										_parser;
-		Report											_report;
 		SortBench<VectorFordJohnson, std::vector<int> >	_vectorBench;
 		SortBench<DequeFordJohnson, std::deque<int> >	_dequeBench;
 };

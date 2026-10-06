@@ -6,14 +6,14 @@
 /*   By: rorollin <rorollin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/06 11:35:59 by rorollin          #+#    #+#             */
-/*   Updated: 2026/10/06 11:35:59 by rorollin         ###   ########.fr       */
+/*   Updated: 2026/10/06 15:08:52 by rorollin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 
 template <typename C>
-void	Report::sequence(const std::string &label, const C &values) const
+void	printSequence(const std::string &label, const C &values)
 {
 	std::cout << label;
 	for (typename C::const_iterator it = values.begin(); it != values.end(); ++it)

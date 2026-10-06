@@ -6,7 +6,7 @@
 /*   By: rorollin <rorollin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/06 11:36:01 by rorollin          #+#    #+#             */
-/*   Updated: 2026/10/06 11:36:01 by rorollin         ###   ########.fr       */
+/*   Updated: 2026/10/06 15:08:53 by rorollin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,12 @@
 #endif
 
 PmergeMe::PmergeMe()
-	: _parser(), _report(), _vectorBench("std::vector"),
-	_dequeBench("std::deque")
+	: _vectorBench("std::vector"), _dequeBench("std::deque")
 {
 }
 
 PmergeMe::PmergeMe(const PmergeMe &other)
-	: _parser(other._parser), _report(other._report),
-	_vectorBench(other._vectorBench), _dequeBench(other._dequeBench)
+	: _vectorBench(other._vectorBench), _dequeBench(other._dequeBench)
 {
 }
 
@@ -32,8 +30,6 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &other)
 {
 	if (this != &other)
 	{
-		_parser = other._parser;
-		_report = other._report;
 		_vectorBench = other._vectorBench;
 		_dequeBench = other._dequeBench;
 	}
@@ -46,14 +42,14 @@ PmergeMe::~PmergeMe()
 
 void	PmergeMe::run(int argc, char **argv)
 {
-	std::vector<int>	input = _parser.parse(argc, argv);
+	std::vector<int>	input = parseInput(argc, argv);
 
-	_report.sequence("Before:", input);
+	printSequence("Before:", input);
 	_vectorBench.run(input);
 	_dequeBench.run(input);
-	_report.sequence("After:", _vectorBench.result());
-	_report.timing(input.size(), _vectorBench.name(), _vectorBench.microseconds());
-	_report.timing(input.size(), _dequeBench.name(), _dequeBench.microseconds());
+	printSequence("After:", _vectorBench.result());
+	printTiming(input.size(), _vectorBench.name(), _vectorBench.microseconds());
+	printTiming(input.size(), _dequeBench.name(), _dequeBench.microseconds());
 #ifdef DEBUG
 	const std::vector<int>	&v = _vectorBench.result();
 	const std::deque<int>	&d = _dequeBench.result();
