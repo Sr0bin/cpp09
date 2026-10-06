@@ -6,7 +6,7 @@
 /*   By: rorollin <rorollin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 12:29:20 by rorollin          #+#    #+#             */
-/*   Updated: 2026/10/06 14:56:10 by rorollin         ###   ########.fr       */
+/*   Updated: 2026/10/06 15:08:54 by rorollin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,11 @@ void	BitcoinExchange::processInput(const std::string &path) const
 void	BitcoinExchange::processLine(const std::string &line) const
 {
 	std::string::size_type	separator = line.find(" | ");
+	std::string				date = line.substr(0, separator);
 	double					value;
 
-	if (separator == std::string::npos)
-	{
-		std::cerr << "Error: bad input => " << line << std::endl;
-		return ;
-	}
-	std::string	date = line.substr(0, separator);
-	if (!isValidDate(date) || !parseNumber(line.substr(separator + 3), value))
+	if (separator == std::string::npos || !isValidDate(date)
+		|| !parseNumber(line.substr(separator + 3), value))
 	{
 		std::cerr << "Error: bad input => " << line << std::endl;
 		return ;
