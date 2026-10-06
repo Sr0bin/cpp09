@@ -6,7 +6,7 @@
 /*   By: rorollin <rorollin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/06 11:36:01 by rorollin          #+#    #+#             */
-/*   Updated: 2026/10/06 15:13:02 by rorollin         ###   ########.fr       */
+/*   Updated: 2026/10/06 15:48:12 by rorollin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ VectorFordJohnson::Elems	VectorFordJohnson::mergeInsert(const Elems &elems)
 
 	Elems	sorted = mergeInsert(winners);
 
-	Elems				chain;
-	Elems				pend;
-	std::vector<size_t>	limits;
+	Elems							chain;
+	Elems							pend;
+	std::vector<Elems::size_type>	limits;
 	chain.reserve(elems.size());
 	pend.reserve(sorted.size());
 	limits.reserve(sorted.size());
@@ -90,6 +90,7 @@ VectorFordJohnson::Elems	VectorFordJohnson::mergeInsert(const Elems &elems)
 		}
 		chain.push_back(a);
 	}
+
 	if (elems.size() % 2 != 0)
 	{
 		pend.push_back(elems.back());
@@ -100,10 +101,11 @@ VectorFordJohnson::Elems	VectorFordJohnson::mergeInsert(const Elems &elems)
 	std::vector<size_t>	order = jacobsthalOrder(pend.size() + 1);
 	for (std::vector<size_t>::size_type n = 0; n < order.size(); ++n)
 	{
-		size_t	i = order[n] - 2;
-		size_t	pos = search.position(chain, limits[i], pend[i]);
-		chain.insert(chain.begin() + pos, pend[i]);
-		for (std::vector<size_t>::size_type j = 0; j < limits.size(); ++j)
+		Elems::size_type	i = order[n] - 2;
+		Elems::size_type	pos = search.position(chain, limits[i], pend[i]);
+		chain.insert(chain.begin() + static_cast<Elems::difference_type>(pos),
+			pend[i]);
+		for (std::vector<Elems::size_type>::size_type j = 0; j < limits.size(); ++j)
 			if (limits[j] >= pos)
 				++limits[j];
 	}

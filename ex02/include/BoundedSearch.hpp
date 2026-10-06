@@ -6,7 +6,7 @@
 /*   By: rorollin <rorollin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/06 11:35:55 by rorollin          #+#    #+#             */
-/*   Updated: 2026/10/06 11:55:39 by rorollin         ###   ########.fr       */
+/*   Updated: 2026/10/06 15:48:12 by rorollin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ class BoundedSearch
 		~BoundedSearch();
 
 		template <typename Chain, typename Elem>
-		size_t	position(const Chain &chain, size_t limit, const Elem &x) const;
+		typename Chain::size_type	position(const Chain &chain,
+			typename Chain::size_type limit, const Elem &x) const;
 
 	private:
 		KeyComparator	*_cmp;

@@ -6,7 +6,7 @@
 /*   By: rorollin <rorollin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/06 11:35:59 by rorollin          #+#    #+#             */
-/*   Updated: 2026/10/06 15:13:02 by rorollin         ###   ########.fr       */
+/*   Updated: 2026/10/06 15:48:12 by rorollin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ DequeFordJohnson::Elems	DequeFordJohnson::mergeInsert(const Elems &elems)
 
 	Elems	sorted = mergeInsert(winners);
 
-	Elems				chain;
-	Elems				pend;
-	std::deque<size_t>	limits;
+	Elems							chain;
+	Elems							pend;
+	std::deque<Elems::size_type>	limits;
 	for (Elems::size_type i = 0; i < sorted.size(); ++i)
 	{
 		Elem	b;
@@ -95,11 +95,12 @@ DequeFordJohnson::Elems	DequeFordJohnson::mergeInsert(const Elems &elems)
 	std::vector<size_t>	order = jacobsthalOrder(pend.size() + 1);
 	for (std::vector<size_t>::size_type n = 0; n < order.size(); ++n)
 	{
-		size_t	i = order[n] - 2;
-		size_t	pos = search.position(chain, limits[i], pend[i]);
-		chain.insert(chain.begin() + pos, pend[i]);
+		Elems::size_type	i = order[n] - 2;
+		Elems::size_type	pos = search.position(chain, limits[i], pend[i]);
+		chain.insert(chain.begin() + static_cast<Elems::difference_type>(pos),
+			pend[i]);
 
-		for (std::deque<size_t>::size_type j = 0; j < limits.size(); ++j)
+		for (std::deque<Elems::size_type>::size_type j = 0; j < limits.size(); ++j)
 			if (limits[j] >= pos)
 				++limits[j];
 	}
